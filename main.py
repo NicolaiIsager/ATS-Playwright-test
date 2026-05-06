@@ -117,30 +117,13 @@ async def process_workqueue(workqueue: Workqueue):
             data = item.data  # dict (deserialiseret JSON)
 
             try:
-                #Overveje her, at lave et print af item id, så man i loggen tydeligt kan se hvilket item der behandles, 
-                # og dermed lettere kan debugge i forhold til det specifikke item i ATS UI'et.
-                # Dog lidt for vondsomt, at hele item.data printes for hvert item, da det kan være meget data og dermed gøre loggen uoverskuelig.
+                from playwright.async_api import async_playwright
 
-                #print("\n========== DEBUG START ==========")
-                #print("ORIGINAL item.data:")
-                #pprint(item.data)
-                logger.info("Her er en item data log")
 
-                # --- din eksisterende logik ---
-                update_item_data(
-                    data,
-                    status_updates={
-                        "status": "Manuel",
-                        "status_kode": "BORGER_UDENFOR_SCOPE"
-                    },
-                    #log_entry={
-                    #    "step": "3.0 Trin 3",
-                    #    "result": "Manuel",
-                    #    "note": "Borger udenfor målgruppen"
-                    #}
-                )
-               
-                
+                async with async_playwright() as p:
+                    print("PLAYWRIGHT: starter chromium")
+                    await p.chromium.launch(headless=True)
+                    print("PLAYWRIGHT: chromium startet OK")
                 from behandel import kør
                 print("starter i main")
                 kør()

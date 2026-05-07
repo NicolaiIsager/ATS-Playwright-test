@@ -55,6 +55,9 @@ async def populate_queue(workqueue: Workqueue):
     #   - API
     #   - Test-hardcodet data (som her)
     # -----------------------------------------------------------------------
+    
+
+
     raw_items = [
         {"cpr": "1234567891", "type": "adresseopslag", "note": "Test-item 1"},
         {"cpr": "1111111111", "type": "fødselsdato-check", "note": "Test-item 2"},
@@ -67,6 +70,7 @@ async def populate_queue(workqueue: Workqueue):
     # -----------------------------------------------------------------------
     for raw_item in raw_items:
         data_json = {}
+
 
         # Her bliver flad input-data konverteret til korrekt item-struktur
         update_item_data(
